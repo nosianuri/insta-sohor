@@ -42,6 +42,7 @@ const switchTab = (id) => {
         document.getElementById( "posts" ).style.display = "grid";
         document.getElementById( "liked" ).style.display = "none";
         document.getElementById( "reported" ).style.display = "none";
+        
     } else if (id === "liked") {
         document.getElementById( "liked" ).style.display = "block";
         document.getElementById( "posts" ).style.display = "none";
@@ -127,9 +128,9 @@ const createPost = (post) => {
                   <div class="post__description">
                     <small>
                       <a class="post__name--underline" href="#">
-                          ${posts.comments?.user}
+                          ${posts.comments ? posts.comments.user : 'Not available'}
                       </a>
-                      ${posts.comments?.text}
+                      ${posts.comments ? posts.comments.text : 'Not available'}
                     </small>
                   </div>
                   <span class="post__date-time">30 minutes ago</span>
@@ -141,11 +142,12 @@ const createPost = (post) => {
 };
 
 const showPosts = (posts) => {
+  console.log(posts);
     const productsContainer = document.getElementById( "posts" );
     productsContainer.innerHTML = "";
 
     posts.forEach((post) => {
-        const div = createPost(post);
+      const div = createPost(post);
         productsContainer.appendChild(div);
     });
 };
@@ -155,6 +157,7 @@ const displayLikedPosts = () => {
     likedPosts.forEach((post) => {
         const div = createPost(post);
         document.getElementById( "liked" ).appendChild(div);
+        
     });
 };
 
@@ -166,11 +169,11 @@ const displayReportedPosts = () => {
     });
 };
 
-const loadPosts = async () =>{
+const loadPosts = async () => {
   let data = await fetch('../data/posts.json');
-  
   posts = await data.json();
   showPosts(posts);
-}
+};
+
 
 loadPosts();

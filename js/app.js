@@ -37,6 +37,7 @@ const displayContent = (text) => {
 };
 
 const switchTab = (id) => {
+  
     if (id === "posts") {
         document.getElementById( "posts" ).style.display = "grid";
         document.getElementById( "liked" ).style.display = "none";
@@ -126,15 +127,16 @@ const createPost = (post) => {
                   <div class="post__description">
                     <small>
                       <a class="post__name--underline" href="#">
-                          ${post.comments?.user}
+                          ${posts.comments?.user}
                       </a>
-                      ${post.comments?.text}
+                      ${posts.comments?.text}
                     </small>
                   </div>
                   <span class="post__date-time">30 minutes ago</span>
                 </div>
               </div>
       `;
+      
     return div;
 };
 
@@ -158,7 +160,7 @@ const displayLikedPosts = () => {
 
 const displayReportedPosts = () => {
     const reportedPosts = getReportedPosts();
-    posts.forEach((post) => {
+    reportedPosts.forEach((post) => {
         const div = createPost(post);
         document.getElementById( "reported" ).appendChild(div);
     });
@@ -166,6 +168,7 @@ const displayReportedPosts = () => {
 
 const loadPosts = async () =>{
   let data = await fetch('../data/posts.json');
+  
   posts = await data.json();
   showPosts(posts);
 }

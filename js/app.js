@@ -142,12 +142,12 @@ const createPost = (post) => {
 };
 
 const showPosts = (posts) => {
-  console.log(posts);
     const productsContainer = document.getElementById( "posts" );
     productsContainer.innerHTML = "";
 
-    posts.forEach((post) => {
-      const div = createPost(post);
+    posts.forEach((posts) => {
+      console.log(posts);
+      const div = createPost(posts);
         productsContainer.appendChild(div);
     });
 };
